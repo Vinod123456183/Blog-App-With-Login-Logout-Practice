@@ -1,0 +1,69 @@
+<title>Home Page</title>
+<body class="bg-gray-100">
+  <%- include('layout/header') %> <%- include('layout/search-box') %>
+
+  <div class="p-6 px-10">
+    <h1 class="text-2xl font-bold text-center text-blue-800">
+      📜 Latest Posts
+    </h1>
+    <p class="mt-2 text-gray-700 text-center">
+      Explore the latest articles and stories.
+    </p>
+  </div>
+
+  <!-- Post List -->
+  <div class="max-w-4xl mx-auto mt-6 space-y-6">
+    <% if (allPosts.length > 0) { %> <% allPosts.forEach((post) => { %>
+    <div
+      class="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow"
+    >
+      <h2 class="text-md font-bold text-blue-600">
+        <a href="/singlePost/<%= post._id %>">
+          <%= post.title.length > 20 ? post.title.substring(0, 20) + "..." :
+          post.title %>
+        </a>
+      </h2>
+      <p class="text-gray-700 mt-2 text-xs">
+        <%= post.body.substring(0, 120) %>...
+      </p>
+      <div class="text-xs text-gray-500 mt-3">
+        🗓️ <span class="font-medium">Created:</span> <%= new
+        Date(post.createdAt).toLocaleDateString() %> | ✏️
+        <span class="font-medium">Updated:</span> <%= new
+        Date(post.updatedAt).toLocaleDateString() %>
+      </div>
+    </div>
+    <% }) %> <% } else { %>
+    <p class="text-center text-gray-500 text-lg">😔 No posts found.</p>
+    <% } %>
+  </div>
+
+  <!-- Pagination Controls -->
+
+  <div
+    class="mt-8 flex justify-center items-center space-x-3 text-sm font-medium pb-8"
+  >
+    <% if (currentPage > 1) { %>
+    <a
+      href="?page=<%= currentPage - 1 %>"
+      class="px-4 py-2 bg-blue-500 text-white rounded-full shadow-md hover:bg-blue-600 transition-transform transform hover:scale-105"
+    >
+      ⬅️ Previous
+    </a>
+    <% } %>
+
+    <!-- Current Page Indicator -->
+    <span class="px-5 py-2 bg-blue-600 text-white rounded-full shadow-md">
+      Page <%= currentPage %> of <%= totalPages %>
+    </span>
+
+    <% if (currentPage < totalPages) { %>
+    <a
+      href="?page=<%= currentPage + 1 %>"
+      class="px-4 py-2 bg-blue-500 text-white rounded-full shadow-md hover:bg-blue-600 transition-transform transform hover:scale-105"
+    >
+      Next ➡️
+    </a>
+    <% } %>
+  </div>
+</body>

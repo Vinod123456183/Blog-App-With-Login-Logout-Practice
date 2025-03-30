@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="bg-gray-100">
+    <%- include('layout/dashBoard_header') %>
+
+    <main class="flex-grow px-10 py-6">
+      <div class="text-center mt-6 mb-10">
+        <h3 class="text-2xl font-semibold text-gray-800 mb-4">All Posts</h3>
+        <a
+          href="/admin/add-Post"
+          class="inline-flex items-center px-5 py-2.5 bg-blue-600 text-white font-medium rounded-lg shadow hover:bg-blue-700 transition duration-200"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-5 w-5 mr-2"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M12 4v16m8-8H4"
+            />
+          </svg>
+          Add Post
+        </a>
+
+        <div class="max-w-4xl mx-auto mt-12 space-y-8">
+          <% if (data.length > 0) { %> <% data.forEach(post => { %>
+          <div
+            class="bg-white rounded-2xl shadow-lg p-6 transition hover:shadow-xl border border-gray-200"
+          >
+            <h2
+              class="text-2xl text-center font-semibold text-blue-700 mb-2 flex items-center gap-2"
+            >
+              <svg
+                class="w-5 h-5 text-blue-500"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M19 21H5a2 2 0 01-2-2V7a2 2 0 012-2h4l2-2h6a2 2 0 012 2v14a2 2 0 01-2 2z"
+                />
+              </svg>
+              <a href="/post/<%= post._id %>">
+                <%= post.title.split(' ').slice(0, 5).join(' ')+"....." %>
+              </a>
+            </h2>
+
+            <p class="text-gray-700 mt-2">
+              <%= post.body.length > 100 ? post.body.slice(0, 105) + '....' :
+              post.body %>
+            </p>
+
+            <div
+              class="mt-4 flex justify-between items-center text-sm text-gray-500"
+            >
+              <span
+                >Created on <%= new Date(post.createdAt).toLocaleDateString() ||
+                'N/A' %></span
+              >
+              <span
+                >Updated on <%= new Date(post.updatedAt).toLocaleDateString() ||
+                'N/A' %></span
+              >
+              <div class="space-x-2">
+                <a
+                  href="/admin/edit-posts/<%= post._id %>"
+                  class="inline-flex items-center px-3 py-1.5 bg-yellow-500 text-white text-sm rounded hover:bg-yellow-600 transition"
+                >
+                  <svg
+                    class="w-4 h-4 mr-1"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5M18.5 2.5l3 3L12 15H9v-3L18.5 2.5z"
+                    />
+                  </svg>
+                  Edit
+                </a>
+                <form
+                  action="/admin/delete-post/<%= post._id %>"
+                  method="POST"
+                  onsubmit="return confirm('Are you sure you want to delete this post?')"
+                  class="inline"
+                >
+                  <button
+                    type="submit"
+                    class="inline-flex items-center px-3 py-1.5 bg-red-500 text-white text-sm rounded hover:bg-red-600 transition"
+                  >
+                    <svg
+                      class="w-4 h-4 mr-1"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5-4h4a1 1 0 011 1v1H9V4a1 1 0 011-1z"
+                      />
+                    </svg>
+                    Delete
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+          <% }) %> <% } else { %>
+          <div class="text-center text-gray-500 text-lg py-10">
+            No posts available. Try adding one!
+          </div>
+          <% } %>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>

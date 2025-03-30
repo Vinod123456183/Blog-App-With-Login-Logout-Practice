@@ -1,0 +1,27 @@
+<%- include('layout/header') %>
+
+<div class="min-h-screen flex items-center justify-center bg-gray-100 p-6">
+  <div class="bg-white p-8 rounded-lg shadow-md max-w-md w-full text-center">
+    <h2 class="text-2xl font-bold text-green-600">
+      ✅ User Created Successfully!
+    </h2>
+
+    <div class="mt-4 text-gray-700">
+      <p><strong>Name:</strong> <%= newUser.name %></p>
+      <p><strong>Email:</strong> <%= newUser.email %></p>
+      <p>
+        <strong>Created At:</strong> <%= new
+        Date(newUser.createdAt).toLocaleString() %>
+      </p>
+    </div>
+
+    <div class="mt-6">
+      <a
+        href="/"
+        class="px-6 py-2 bg-blue-600 text-white rounded-lg shadow-md hover:bg-blue-700"
+      >
+        ⬅️ Back to Home
+      </a>
+    </div>
+  </div>
+</div>

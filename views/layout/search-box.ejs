@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Search Page</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="bg-gray-100 flex items-center justify-center min-h-screen">
+    <div class="w-full max-w-full p-3 rounded-lg shadow-sm">
+      <h2 class="text-2xl font-bold text-center pb-4 pt-3">Search Here 🔎</h2>
+
+      <form
+        action="/search"
+        method="POST"
+        class="flex items-center justify-center space-x-2 rounded-lg p-2"
+      >
+        <!-- change name from wuery to search -->
+        <input
+          type="text"
+          name="search"
+          id="search-input"
+          placeholder="Search..."
+          required
+          class="px-3 py-2 border-none outline-none w-[40%] bg-gray-300 focus:ring-2 focus:ring-blue-500 rounded-lg"
+        />
+        <button
+          type="submit"
+          class="px-3 py-2 bg-blue-100 text-white rounded-lg hover:bg-blue-200"
+        >
+          🔍
+        </button>
+        <button
+          type="reset"
+          class="px-3 py-2 bg-red-100 text-white rounded-lg hover:bg-red-200"
+        >
+          ❌
+        </button>
+      </form>
+    </div>
+  </body>
+</html>
